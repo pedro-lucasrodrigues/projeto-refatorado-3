@@ -3,22 +3,22 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Product {
   id    Int     @id @default(autoincrement())
   name  String
-  type  String  // physical | digital
+  type  String
   price Float
 }
 
 model Order {
-  id         Int      @id @default(autoincrement())
-  customer   String
-  items      String   // JSON
-  total      Float
-  status     String
-  createdAt  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  customer  String
+  items     String
+  total     Float
+  status    String
+  createdAt DateTime @default(now())
 }
