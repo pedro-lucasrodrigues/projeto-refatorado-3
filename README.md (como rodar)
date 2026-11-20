@@ -1,7 +1,6 @@
-## Como rodar
+Como rodar
 
- abra a pasta no terminal
-```bash
+abra a pasta no terminal e escreve:
 npm install
 cp .env.example .env
 
@@ -9,12 +8,7 @@ Execute:
 docker compose up --build
 
 Para parar os containers:
-
-```bash
 docker compose down
 
 Para parar e também apagar os dados do banco:
-
-```bash
 docker compose down -v
-```
