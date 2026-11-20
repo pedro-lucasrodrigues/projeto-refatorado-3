@@ -11,4 +11,8 @@ export class InMemoryOrderRepository implements IOrderRepository {
     this.orders.push(order);
     return order;
   }
+
+  async findById(id: number): Promise<Order | null> {
+    return this.orders.find((order) => order.id === id) ?? null;
+  }
 }
