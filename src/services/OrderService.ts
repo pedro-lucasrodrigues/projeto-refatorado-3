@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../container/types';
 import logger from '../lib/logger';
-import { ValidationError } from '../domain/errors';
+import { OrderNotFoundError, ValidationError } from '../domain/errors';
 import { OrderItem, OrderLine } from '../domain/Order';
 import { ProductFactory } from '../domain/ProductFactory';
 import { IProductRepository } from '../repositories/IProductRepository';
@@ -17,6 +17,15 @@ export class OrderService {
     @inject(PaymentMethodRegistry) private payments: PaymentMethodRegistry,
     @inject(NotificationService) private notification: NotificationService,
   ) {}
+
+
+  async getOrderById(id: number) {
+    const order = await this.orders.findById(id);
+    if (!order) {
+      throw new OrderNotFoundError(`Pedido ${id} não encontrado`);
+    }
+    return order;
+  }
 
   async placeOrder(customer: string, items: OrderItem[], paymentMethod: string, paymentDetails: any) {
     if (!items || items.length === 0) {
